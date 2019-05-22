@@ -42,7 +42,8 @@ class Main
 //        d.playWithDefaults();
 //        d.playWithLambdas();
 //        d.playWithClasses();
-        d.playingWithPassByRef();
+//        d.playingWithPassByRef();
+        d.playWithBoxingAndCasting();
 
         // varargs test
         int num1 = 25, num2 = 37, num3 = -18, num4 = 12, num5 = 73;

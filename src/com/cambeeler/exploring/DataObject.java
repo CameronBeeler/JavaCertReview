@@ -6,6 +6,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.*;
+import java.util.function.Predicate;
 
 import static com.cambeeler.ColorConstants.*;
 import static java.time.LocalTime.now;
@@ -19,6 +20,11 @@ class DataObject
     private String[] refStrValNull;
     public int val;
     public String sval;
+
+    public DataObject()
+    {
+        System.out.println(LOG + "DataObject has initiated" + RESET);
+    }
 
     public static void playWithCharacters()
     {
@@ -505,7 +511,13 @@ class DataObject
         teg.add(127);
         teg.add(127);
         System.out.println(teg.get(0) == teg.get(1));
-
+        System.out.println("binary (127+21) = " + (byte)(127+21));
+        System.out.println("binary (127+1) = " + (byte)(127+1));
+        System.out.println("binary (127+1 + 20) = " + ((byte)(127+1)+(byte)(20)));
+        Boolean [] bool = new Boolean[2];
+        boolean [] bul = {true, false};
+        System.out.println(bool[0] + ":" + bool[1]);
+        System.out.println(bul[0] + ":" + bul[1]);
     }
 
     public
@@ -692,14 +704,10 @@ class DataObject
 //        s = new StringBuilder("I Hate ");
         s.append("Rock -n- Roll");
     }
-    
 
-}
-/*
-        String[]  arr = {"*", "**", "***", "****", "*****"};
-        Predicate<String> pr1 = s -> s.length() < 4;
-        print(arr, pr1);
-        String s = "net a bunch a crap";
+    public void testPlay()
+    {
+        String s = "net a bunch a stuff";
         System.out.println(play("adelbc"));
         System.out.println(play("adelhello"));
         System.out.println(play("adedbc"));
@@ -711,23 +719,40 @@ class DataObject
         System.out.println(play("del"));
         System.out.println(play("adel"));
         System.out.println(play("aadelbb"));
-        System.out.println("binary (127+21) = " + (byte)(127+21));
-        System.out.println("binary (127+1) = " + (byte)(127+1));
-        System.out.println("binary (127+1 + 20) = " + ((byte)(127+1)+(byte)(20)));
-        Boolean [] bool = new Boolean[2];
-        boolean [] bul = {true, false};
-        System.out.println(bool[0] + ":" + bool[1]);
-        System.out.println(bul[0] + ":" + bul[1]);
+    }
 
-        Map<String, Integer> m = new TreeMap<String, Integer>();
-        for(String word : args)
+    public String play(String str)
+    {
+        if(str.length()<4) return str;
+        if(str.substring(1,4).equals("del"))
         {
-            Integer freq = m.get(word);     // if the value is not already in the TreeMap 'm',
-                                            // then this will return null, else it will return the increment value.
-            m.put(word, (freq==null? 1 : freq + 1));
+            return str.substring(0,1) + str.substring(4,str.length());
         }
-        System.out.println(m);
+        return str;
+    }
 
+
+    public void testPredicatePrint()
+    {
+        String[]  arr = {"*", "**", "***", "****", "*****"};
+        Predicate<String> pr1 = s -> s.length() < 4;
+        print(arr, pr1);
+    }
+
+    private
+    void print(String[] arr, Predicate<String> predicate)
+    {
+        for (String str : arr)
+        {
+            if (predicate.test(str))
+            {
+                System.out.println(str);
+            }
+        }
+    }
+
+    public void playWithBoxingAndCasting()
+    {
         // The following leverages two principles.
         //  First, of the types are common, then the 'widening' of a value is allowed.  Narrowing is NOT allowed.
         //  Widening includes:
@@ -750,7 +775,11 @@ class DataObject
         System.out.println(bx_p);
 
         String myInt_s = i_w.toString();
-        System.out.println("My integer value is " + myInt_s);
+//        String myInt_s2 = (String) i_w; - this cannot be cast, must be converted
+//        String myInt_s3 = (String) i_p; - this cannot be cast, but can be converted in addition
+        String myInt_s4 = " " + i_p;
+        System.out.println("My Integer value is " + myInt_s);
+        System.out.println("My int value was added to a String '" + myInt_s4.trim() + "'");
         System.out.println("My short value unboxed from Integer is " + s_p);
         int is_p = Integer.parseInt(myInt_s);
         System.out.println("My short value unboxed from String is " + is_p);
@@ -774,7 +803,7 @@ class DataObject
         System.out.println(approx);
         System.out.println(1 + 2 + 3 + 4 + "Hello");
         System.out.println(1 + 2 + "Hello" + 2 + 3 + 4); // addition is left->right associative.  so we do the following
-                                                        // (((((1+2) + "Hello") + 2) + 3) + 4)
+        // (((((1+2) + "Hello") + 2) + 3) + 4)
         int aa = 7;
         System.out.println((aa++==7 && ++aa == 9  || aa++ == 9));
         System.out.println(aa);
@@ -782,35 +811,22 @@ class DataObject
         int myInt = 7;
         Integer myInteger = myInt;
 
-
-
         int i;
         for (i=0;i<=2;i++){}
         System.out.println(i);
+    }
+
+
+}
+/*
+
+
+
+
+
 
     }
 
-    public static String play(String str)
-    {
-        if(str.length()<4) return str;
-        if(str.substring(1,4).equals("del"))
-        {
-            return str.substring(0,1) + str.substring(4,str.length());
-        }
-        return str;
-    }
-
-    private static
-    void print(String[] arr, Predicate<String> predicate)
-    {
-        for (String str : arr)
-        {
-            if (predicate.test(str))
-            {
-                System.out.println(str);
-            }
-        }
-    }
 }
 
  */
