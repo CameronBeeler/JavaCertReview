@@ -43,6 +43,12 @@ class Main
 //        d.playWithLambdas();
 //        d.playWithClasses();
         d.playingWithPassByRef();
+
+        // varargs test
+        int num1 = 25, num2 = 37, num3 = -18, num4 = 12, num5 = 73;
+        String string = "Playing around with varargs";
+        double summ = DataObject.playwithVarArgs(string, num1, num2, num3, num4, num5);
+        System.out.println("The summ total is => " + summ);
     }
 
     public String class_static = "PublicStaticVariable declared at thebottom";

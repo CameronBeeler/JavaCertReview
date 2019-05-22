@@ -5,12 +5,9 @@ import com.cambeeler.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 import static com.cambeeler.ColorConstants.*;
-import static com.cambeeler.ColorConstants.BLUE;
 import static java.time.LocalTime.now;
 
 public
@@ -22,6 +19,102 @@ class DataObject
     private String[] refStrValNull;
     public int val;
     public String sval;
+
+    public static void playWithCharacters()
+    {
+        System.out.println(ColorConstants.BLUE + "playWithCharacters" + ColorConstants.RESET);
+        int var = '7';
+        System.out.println("int of char value 7 - "
+                           + var
+                           + " the int '7' as an ASCII character has a numeric value of 55");
+
+        System.out.println("char of int value 7 - "
+                           + (char) var
+                           + " Can be represented as a character '7'");
+
+        char cvar = 7;
+        System.out.println("char 7 - "
+                           + cvar
+                           + " the ASCII value of 7 is an unprintable ASCII character");
+        System.out.println("int value of char 7 - "
+                           + (int) cvar
+                           + " Casting the ASCII 7 as an int");
+
+        char cvar1 = '7';
+        System.out.println("char '7' - "
+                           + cvar1
+                           + " ASCII character representation");
+        System.out.println("int value of char '7' - "
+                           + (int) cvar1
+                           + " ASCII character value of '7' is encoded from numeric value of 55");
+        System.out.println("-------------------------------\n");
+
+    }
+
+    public static void playWithTryCatch()
+            throws Exception, ArithmeticException
+    {
+        System.out.println(ColorConstants.BLUE + "playWithTryCatch" + ColorConstants.RESET);
+        int a=0, b=0;
+        try
+        {
+            int x = a/b;
+        }
+        catch(ArithmeticException e)
+        {
+            System.out.println(ColorConstants.RED_BOLD + "ArithmeticException thrown" + ColorConstants.RESET);
+            throw new ArithmeticException("division by zero");
+        }
+        catch(Exception e)
+        {
+            System.out.println(ColorConstants.RED_BOLD + "Exception thrown" + ColorConstants.RESET);
+            throw new Exception("I don't know why, but this catches all!");
+        }
+        System.out.println("-------------------------------\n");
+
+    }
+
+    public static void playWithBinarySearch()
+    {
+        System.out.println(ColorConstants.BLUE + "playWithBinarySearch" + ColorConstants.RESET);
+        List<String> hex = Arrays.asList("10", "8", "4B", "FF");
+        Collections.sort(hex);
+        int x = Collections.binarySearch(hex, "8");
+        int y = Collections.binarySearch(hex, "4B");
+        int z = Collections.binarySearch(hex, "4F");
+        System.out.println(x + " " + y + " " + z);
+        System.out.println("-------------------------------\n");
+
+    }
+
+    public static void playWithArrays()
+    {
+        System.out.println(ColorConstants.BLUE + "playWithArrays" + ColorConstants.RESET);
+        List<Integer> myArrayList = new ArrayList<>();
+        myArrayList.add(Integer.parseInt("5"));
+        myArrayList.add(Integer.valueOf("6"));
+        myArrayList.add(Integer.valueOf(14444));
+        myArrayList.add(7);
+//        myArrayList.add(null); // - this breaks the unboxing in the for loop as int cannot have a null value.``
+        for (int age : myArrayList)
+            System.out.println(age);
+        System.out.println("-------------------------------\n");
+
+    }
+
+    public static double playwithVarArgs(String s, double ... nbr)
+    {
+        System.out.println(s);
+        int summ =0;
+
+        for (double n : nbr)
+        {
+            summ+=n;
+            System.out.println(n);
+        }
+       return summ;
+
+    }
 
     @Override
     public String toString()
@@ -599,7 +692,125 @@ class DataObject
 //        s = new StringBuilder("I Hate ");
         s.append("Rock -n- Roll");
     }
-
-
+    
 
 }
+/*
+        String[]  arr = {"*", "**", "***", "****", "*****"};
+        Predicate<String> pr1 = s -> s.length() < 4;
+        print(arr, pr1);
+        String s = "net a bunch a crap";
+        System.out.println(play("adelbc"));
+        System.out.println(play("adelhello"));
+        System.out.println(play("adedbc"));
+        System.out.println(play("adcdel"));
+        System.out.println(play("add"));
+        System.out.println(play("ad"));
+        System.out.println(play("a"));
+        System.out.println(play(""));
+        System.out.println(play("del"));
+        System.out.println(play("adel"));
+        System.out.println(play("aadelbb"));
+        System.out.println("binary (127+21) = " + (byte)(127+21));
+        System.out.println("binary (127+1) = " + (byte)(127+1));
+        System.out.println("binary (127+1 + 20) = " + ((byte)(127+1)+(byte)(20)));
+        Boolean [] bool = new Boolean[2];
+        boolean [] bul = {true, false};
+        System.out.println(bool[0] + ":" + bool[1]);
+        System.out.println(bul[0] + ":" + bul[1]);
+
+        Map<String, Integer> m = new TreeMap<String, Integer>();
+        for(String word : args)
+        {
+            Integer freq = m.get(word);     // if the value is not already in the TreeMap 'm',
+                                            // then this will return null, else it will return the increment value.
+            m.put(word, (freq==null? 1 : freq + 1));
+        }
+        System.out.println(m);
+
+        // The following leverages two principles.
+        //  First, of the types are common, then the 'widening' of a value is allowed.  Narrowing is NOT allowed.
+        //  Widening includes:
+        //  byte -> short -> int -> long
+        //  float -> double
+        //  char -> byte -> char are allowed
+        //
+        //  Second, boxing and auto-unboxing occur on common types.
+        //  ie, you can begin with a byte value and box to Byte, to Short, to Integer, but not to Float or Double.
+        //  the number would need to LOOK like a float or double value (#.#).
+        byte b_p = 7;
+        Byte b_w = b_p;
+        short s_p = b_w;
+        Short s_w = s_p;
+        int i_p = s_w;
+        Integer i_w = i_p;
+        char c_p = 'A';
+        Character c_w = c_p;
+        byte bx_p = (byte) c_p;
+        System.out.println(bx_p);
+
+        String myInt_s = i_w.toString();
+        System.out.println("My integer value is " + myInt_s);
+        System.out.println("My short value unboxed from Integer is " + s_p);
+        int is_p = Integer.parseInt(myInt_s);
+        System.out.println("My short value unboxed from String is " + is_p);
+        System.out.println("eq " + (new Integer(10) == 10));
+
+        Integer iv_w = new Integer(127);
+        Integer iv2_w = new Integer(127);
+        System.out.println(iv_w == iv2_w);
+
+        Integer iw1 = 127;
+        Integer iw2 = 127;
+        System.out.println(iw1 == iw2);
+
+        int big = 1234567890;
+        float approx = big;
+        double approx_d = big;
+        System.out.println(big - (int)approx); //   In the conversion from int to float, we can lose info
+        System.out.println(big - (int)approx_d); //     in the conversion between int and double there is no loss
+        System.out.println(big );
+        System.out.println(approx_d);
+        System.out.println(approx);
+        System.out.println(1 + 2 + 3 + 4 + "Hello");
+        System.out.println(1 + 2 + "Hello" + 2 + 3 + 4); // addition is left->right associative.  so we do the following
+                                                        // (((((1+2) + "Hello") + 2) + 3) + 4)
+        int aa = 7;
+        System.out.println((aa++==7 && ++aa == 9  || aa++ == 9));
+        System.out.println(aa);
+
+        int myInt = 7;
+        Integer myInteger = myInt;
+
+
+
+        int i;
+        for (i=0;i<=2;i++){}
+        System.out.println(i);
+
+    }
+
+    public static String play(String str)
+    {
+        if(str.length()<4) return str;
+        if(str.substring(1,4).equals("del"))
+        {
+            return str.substring(0,1) + str.substring(4,str.length());
+        }
+        return str;
+    }
+
+    private static
+    void print(String[] arr, Predicate<String> predicate)
+    {
+        for (String str : arr)
+        {
+            if (predicate.test(str))
+            {
+                System.out.println(str);
+            }
+        }
+    }
+}
+
+ */
